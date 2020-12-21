@@ -1,6 +1,9 @@
-# TODO: Write documentation for `CardGame`
-module CardGame
-  VERSION = "0.1.0"
+require "./game"
+require "./deal"
+require "./deck_of_cards"
 
-  # TODO: Put your code here
+module CardGame
+  def self.create
+    Game.new
+  end
 end
