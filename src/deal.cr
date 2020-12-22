@@ -5,7 +5,7 @@ module CardGame
   
     def initialize
       @hands = Array(Array(DeckOfCards::Card)).new
-      @deck = DeckOfCards.create
+      @deck = DeckOfCards::Deck.create
       deal_hands
     end
 
