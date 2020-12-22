@@ -48,5 +48,5 @@ describe CardGame::Game do
 end
 
 def sorted_52_cards
-  DeckOfCards::Deck.create.map { |card| card.to_s }.sort
+  CardGame::Deck.create.map { |card| card.to_s }.sort
 end

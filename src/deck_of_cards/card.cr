@@ -1,4 +1,4 @@
-module DeckOfCards
+module CardGame
   class Card
     getter :rank, :suit
 
