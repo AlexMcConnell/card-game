@@ -1,16 +1,16 @@
 module CardGame
   class Deal
-    @deck : CardGame::Deck
+    @deck : Deck
     getter :hands
   
     def initialize
-      @hands = Array(Array(CardGame::Card)).new
-      @deck = CardGame::Deck.create
+      @hands = Array(Array(Card)).new
+      @deck = Deck.create
       deal_hands
     end
 
     private def deal_hands
-      4.times { @hands << Array(CardGame::Card).new }
+      4.times { @hands << Array(Card).new }
       @hands.each { |hand| 13.times { hand << @deck.deal } }
     end
   end
