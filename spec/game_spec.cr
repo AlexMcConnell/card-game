@@ -16,6 +16,12 @@ describe Game do
   
       dealt_cards.should eq sorted_52_cards
     end
+
+    it "starts with an empty current_trick" do
+      game = Game.new
+
+      game.current_trick.size.should eq 0
+    end
   end
 
   context "#new_deal" do
