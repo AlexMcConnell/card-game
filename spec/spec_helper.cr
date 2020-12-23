@@ -1,4 +1,4 @@
 require "spec"
-require "../src/card_game"
+require "../src/*"
 
 include CardGame

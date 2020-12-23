@@ -1,6 +1,4 @@
-require "./game"
-require "./deal"
-require "./deck_of_cards/deck"
+require "./*"
 
 module CardGame
   def self.create
