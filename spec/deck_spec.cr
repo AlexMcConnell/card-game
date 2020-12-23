@@ -1,16 +1,14 @@
 require "./spec_helper"
 
 describe Deck do
-  ranks = Deck::RANKS
-  suits = Deck::SUITS
-  deck_size = (ranks.size * suits.size)
+  deck_size = (RANKS.size * SUITS.size)
 
   context ".create" do
     it "returns a deck with 1 card for each rank and suit combination" do
       deck = Deck.create
 
-      possible_cards = ranks.map do |r|
-        suits.map { |s| r + s }
+      possible_cards = RANKS.map do |r|
+        SUITS.map { |s| r + s }
       end.flatten
 
       cards_from_deck = Array(String).new(52) { deck.deal.to_s }
@@ -34,8 +32,8 @@ describe Deck do
       deck = Deck.create
       card = deck.deal
 
-      suits.should contain(card.suit)
-      ranks.should contain(card.rank)
+      SUITS.should contain(card.suit)
+      RANKS.should contain(card.rank)
     end
 
     it "reduces the size of the deck by 1" do
