@@ -5,6 +5,6 @@ module CardGame
     Game.new
   end
 
-  RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-  SUITS = ["C", "D", "H", "S"]
+  RANKS = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
+  SUITS = ["Clubs", "Diamonds", "Hearts", "Spades"]
 end

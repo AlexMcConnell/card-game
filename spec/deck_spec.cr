@@ -8,7 +8,7 @@ describe Deck do
       deck = Deck.create
 
       possible_cards = RANKS.map do |r|
-        SUITS.map { |s| r + s }
+        SUITS.map { |s| Card.new(r, s).to_s }
       end.flatten
 
       cards_from_deck = Array(String).new(52) { deck.deal.to_s }
