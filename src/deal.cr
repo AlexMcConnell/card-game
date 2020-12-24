@@ -13,8 +13,8 @@ module CardGame
     end
 
     private def deal_hands
-      4.times { @hands << Array(Card).new }
-      @hands.each { |hand| 13.times { hand << @deck.deal } }
+      NUMBER_OF_HANDS.times { @hands << Array(Card).new }
+      @hands.each { |hand| STARTING_HAND_SIZE.times { hand << @deck.deal } }
     end
 
     private def new_trick
