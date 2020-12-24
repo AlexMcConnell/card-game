@@ -1,6 +1,15 @@
 require "./spec_helper"
 
 describe "Game#play" do
+  context "when card not in hand" do
+    it "raises MissingCardError" do
+      game = Game.new
+      expect_raises(MissingCardError) do
+        game.play(0, "King of Queens")
+      end
+    end
+  end
+
   context "when the first play of a trick" do
     it "removes the card from the given hand" do
       game = Game.new
