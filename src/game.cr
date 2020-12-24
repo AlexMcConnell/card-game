@@ -18,7 +18,13 @@ module CardGame
 
     def play(hand_num, card_str)
       card = Card.from_s(card_str)
-      found_card = hands[hand_num].delete(card)
+      hand = hands[hand_num]
+      if current_trick.size > 0
+        led_suit = current_trick.first.suit
+        return "Must follow suit." if led_suit != card.suit && hand.has_suit?(led_suit)
+      end
+
+      found_card = hand.delete(card)
       raise MissingCardError.new unless found_card
       current_trick << found_card
     end
