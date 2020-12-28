@@ -31,7 +31,7 @@ describe "Game#play" do
     end
   end
 
-  context "when neither first nor last play of a trick" do
+  context "when not first play of a trick" do
     context "when spades are led and has a spade" do
       it "cannot play a club" do
         game = Game.new
@@ -84,6 +84,21 @@ describe "Game#play" do
         game.current_trick.should contain  played_card
       end
     end
+  end
+end
+
+context "when last play of a trick" do
+  it "starts the next trick" do
+    game = Game.new
+    game.current_trick << Card.new("Two", "Spades")
+    game.current_trick << Card.new("Three", "Spades")
+    game.current_trick << Card.new("Four", "Spades")
+    game.hands[0] = hand_of_aces
+
+    played_card = Card.new("Ace", "Spades")
+    result = game.play(0, played_card.to_s)
+
+    game.current_trick.size.should eq 0
   end
 end
 

@@ -17,7 +17,9 @@ module CardGame
     end
 
     def play(hand_num, card_str)
-      Play.new(self, hand_num, card_str).do
+      response = Play.new(self, hand_num, card_str).do
+      @deal.tricks << Trick.new if current_trick.size == 4
+      response
     end
   end
 end
