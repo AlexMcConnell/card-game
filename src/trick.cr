@@ -1,4 +1,4 @@
 module CardGame
-  class Trick < Array(Card)
+  class Trick < CardArray
   end
 end

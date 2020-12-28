@@ -1,5 +1,5 @@
 module CardGame
-  class Deck < Array(Card)
+  class Deck < CardArray
     def self.create
       Deck.new.build.shuffle!
     end

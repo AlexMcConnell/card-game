@@ -1,5 +1,5 @@
 module CardGame
-  class Hand < Array(Card)
+  class Hand < CardArray
     def has_suit?(suit)
       any? { |card| card.suit == suit }
     end
