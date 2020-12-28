@@ -18,9 +18,7 @@ module CardGame
         return "Must follow suit." if led_suit != card.suit && hand.has_suit?(led_suit)
       end
 
-      found_card = hand.delete(card)
-      raise MissingCardError.new unless found_card
-      @game.current_trick << found_card
+      hand.transfer(card, @game.current_trick)
     end
   end
 end
