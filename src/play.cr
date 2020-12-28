@@ -17,9 +17,7 @@ module CardGame
     end
 
     private def suit_valid?
-      return true if @trick.size == 0
-      suit = @trick.first.suit
-      suit == @card.suit || !@hand.has_suit?(suit)
+      @trick.follows_suit?(@card) || !@hand.has_suit?(@trick.suit)
     end
   end
 end
