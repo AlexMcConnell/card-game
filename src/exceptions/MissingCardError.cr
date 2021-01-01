@@ -1,2 +1,4 @@
-class MissingCardError < Exception
+module CardGame
+  class MissingCardError < Exception
+  end
 end

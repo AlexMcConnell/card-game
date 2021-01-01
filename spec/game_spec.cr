@@ -35,50 +35,49 @@ describe Game do
   end
 
   context "#new_deal" do
-    it "deals all STARTING_HAND_SIZE card hands" do
-      game = Game.new
-      game.new_deal
+    context "when game not full" do
+      it "raises MissingPlayerError" do
+        game = Game.new
 
-      game.hands.each { |hand| hand.size.should eq STARTING_HAND_SIZE }
+        expect_raises(MissingPlayerError) do
+          game.new_deal
+        end
+      end
     end
 
-    it "deals all cards from deck to hands" do
-      game = Game.new
-      game.new_deal
+    context "when game full" do
+      it "deals all STARTING_HAND_SIZE card hands" do
+        game = game_with_players
 
-      all_cards = game.hands.flatten.map(&.to_s).sort
+        game.hands.each { |hand| hand.size.should eq STARTING_HAND_SIZE }
+      end
 
-      all_cards.should eq sorted_deck
-    end
+      it "deals all cards from deck to hands" do
+        game = game_with_players
 
-    it "replaces the existing hands" do
-      game = Game.new
-      game.new_deal
+        all_cards = game.hands.flatten.map(&.to_s).sort
 
-      original_hands = game.hands.flatten.map(&.to_s)
+        all_cards.should eq sorted_deck
+      end
 
-      game.new_deal
+      it "replaces the existing hands" do
+        game = game_with_players
 
-      new_hands = game.hands.flatten.map(&.to_s)
-      original_hands.should_not eq new_hands
-    end
+        original_hands = game.hands.flatten.map(&.to_s)
 
-    it "starts with an empty current_trick" do
-      game = Game.new
+        game.new_deal
 
-      game.current_trick.size.should eq 0
+        new_hands = game.hands.flatten.map(&.to_s)
+        original_hands.should_not eq new_hands
+      end
+
+      it "starts with an empty current_trick" do
+        game = game_with_players
+
+        game.current_trick.size.should eq 0
+      end
     end
   end
-end
-
-def game_with_players
-  game = Game.new
-  game.add_player("Steve")
-  game.add_player("Tony")
-  game.add_player("Bruce")
-  game.add_player("Clint")
-  game.new_deal
-  game
 end
 
 def sorted_deck

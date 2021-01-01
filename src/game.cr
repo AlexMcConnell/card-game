@@ -8,7 +8,7 @@ module CardGame
     end
 
     def add_player(name)
-      @players << GamePlayer.new(name) if @players.size < MAX_PLAYERS
+      @players << GamePlayer.new(name) unless full?
     end
 
     def current_trick
@@ -20,11 +20,16 @@ module CardGame
     end
 
     def new_deal
+      raise MissingPlayerError.new unless full?
       @deal = Deal.create
     end
 
     def play(hand_num, card_str)
       @deal.play(hand_num, card_str)
+    end
+
+    private def full?
+      @players.size == MAX_PLAYERS
     end
   end
 end
