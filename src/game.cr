@@ -21,11 +21,11 @@ module CardGame
 
     def new_deal
       raise MissingPlayerError.new unless full?
-      @deal = Deal.create
+      @deal = Deal.create(@players)
     end
 
-    def play(hand_num, card_str)
-      @deal.play(hand_num, card_str)
+    def play(player, card_str)
+      @deal.play(player, card_str)
     end
 
     private def full?

@@ -4,16 +4,17 @@ module CardGame
     @hands : Hands
     @tricks : Tricks
 
-    getter :hands, :tricks
+    getter :hands, :players, :tricks
   
-    def initialize
+    def initialize(players = GamePlayers.new)
       @deck = Deck.new
       @hands = Hands.new
+      @players = players
       @tricks = Tricks.create
     end
 
-    def self.create
-      Deal.new.deal
+    def self.create(players)
+      Deal.new(players).deal
     end
 
     def current_trick
@@ -27,10 +28,15 @@ module CardGame
       self
     end
 
-    def play(hand_num, card_str)
-      response = Play.new(self, hand_num, card_str).do
+    def play(player, card_str)
+      response = Play.new(self, player, card_str).do
       tricks << Trick.new if current_trick.size == 4
       response
+    end
+
+    def player_hand(player)
+      index = players.index(player)
+      hands[index]
     end
   end
 end

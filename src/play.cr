@@ -4,10 +4,10 @@ module CardGame
     @hand : Hand
     @trick : Trick
 
-    def initialize(game, hand_num, card_str)
+    def initialize(deal, player, card_str)
+      @hand = deal.player_hand(player)
       @card = Card.from_s(card_str)
-      @hand = game.hands[hand_num]
-      @trick = game.current_trick
+      @trick = deal.current_trick
     end
 
     def do

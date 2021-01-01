@@ -6,7 +6,18 @@ describe "Game#play" do
       game = game_with_players
 
       expect_raises(MissingCardError) do
-        game.play(0, "King of Queens")
+        game.play(game.players.first, "King of Queens")
+      end
+    end
+  end
+
+  context "when player not in deal" do
+    it "raises MissingPlayerError" do
+      game = game_with_players
+      player = GamePlayer.new("Jaws")
+
+      expect_raises(MissingPlayerError) do
+        game.play(player, "should throw before checking this")
       end
     end
   end
@@ -17,7 +28,7 @@ describe "Game#play" do
       hand = game.hands[0]
       card = hand[0].to_s
 
-      game.play(0, card)
+      game.play(game.players.first, card)
 
       hand.map(&.to_s).should_not contain card
     end
@@ -26,7 +37,7 @@ describe "Game#play" do
       game = game_with_players
       card = game.hands[0][0].to_s
 
-      game.play(0, card)
+      game.play(game.players.first, card)
 
       game.current_trick.last.to_s.should eq card
     end
@@ -41,7 +52,7 @@ describe "Game#play" do
         game.hands[0] = hand_of_aces
 
         played_card = Card.new("Ace", "Clubs")
-        result = game.play(0, played_card.to_s)
+        result = game.play(game.players.first, played_card.to_s)
 
         game.current_trick.should_not contain  played_card
         result.should eq "Must follow suit."
@@ -54,7 +65,7 @@ describe "Game#play" do
         game.hands[0] = hand_of_aces
 
         played_card = Card.new("Ace", "Diamond")
-        result = game.play(0, played_card.to_s)
+        result = game.play(game.players.first, played_card.to_s)
 
         game.current_trick.should_not contain  played_card
         result.should eq "Must follow suit."
@@ -67,7 +78,7 @@ describe "Game#play" do
         game.hands[0] = hand_of_aces
 
         played_card = Card.new("Ace", "Heart")
-        result = game.play(0, played_card.to_s)
+        result = game.play(game.players.first, played_card.to_s)
 
         game.current_trick.should_not contain  played_card
         result.should eq "Must follow suit."
@@ -80,7 +91,7 @@ describe "Game#play" do
         game.hands[0] = hand_of_aces
 
         played_card = Card.new("Ace", "Spades")
-        result = game.play(0, played_card.to_s)
+        result = game.play(game.players.first, played_card.to_s)
 
         game.current_trick.should contain  played_card
       end
@@ -97,7 +108,7 @@ context "when last play of a trick" do
     game.hands[0] = hand_of_aces
 
     played_card = Card.new("Ace", "Spades")
-    result = game.play(0, played_card.to_s)
+    result = game.play(game.players.first, played_card.to_s)
 
     game.current_trick.size.should eq 0
   end
