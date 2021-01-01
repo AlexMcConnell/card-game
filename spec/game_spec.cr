@@ -24,6 +24,31 @@ describe Game do
     end
   end
 
+  context "#add_player" do
+    it "adds a new player to the game" do
+      game = Game.new
+      p1_name = "Steve"
+
+      game.add_player(p1_name)
+
+      game.players.size.should eq 1
+      game.players.first.name.should eq p1_name
+    end
+
+    context "when game is full" do
+      it "should not add player" do
+        game = Game.new
+
+        MAX_PLAYERS.times { game.add_player("Steve")}
+
+        game.players.size.should eq 4
+
+        game.add_player("Tony")
+        game.players.size.should eq 4
+      end
+    end
+  end
+
   context "#new_deal" do
     it "deals all STARTING_HAND_SIZE card hands" do
       game = Game.new

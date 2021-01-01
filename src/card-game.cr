@@ -10,4 +10,5 @@ module CardGame
   SUITS = ["Clubs", "Diamonds", "Hearts", "Spades"]
   NUMBER_OF_HANDS = 4
   STARTING_HAND_SIZE = 13
+  MAX_PLAYERS = 4
 end

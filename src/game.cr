@@ -1,7 +1,14 @@
 module CardGame
   class Game
+    getter :players
+
     def initialize
       @deal = Deal.new
+      @players = GamePlayers.new
+    end
+
+    def add_player(name)
+      @players << GamePlayer.new(name) if @players.size < MAX_PLAYERS
     end
 
     def current_trick
