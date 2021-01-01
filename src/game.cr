@@ -12,7 +12,7 @@ module CardGame
     end
 
     def current_trick
-      @deal.tricks.last
+      @deal.current_trick
     end
 
     def hands
@@ -20,13 +20,11 @@ module CardGame
     end
 
     def new_deal
-      @deal = Deal.new
+      @deal = Deal.create
     end
 
     def play(hand_num, card_str)
-      response = Play.new(self, hand_num, card_str).do
-      @deal.tricks << Trick.new if current_trick.size == 4
-      response
+      @deal.play(hand_num, card_str)
     end
   end
 end

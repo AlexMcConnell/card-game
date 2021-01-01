@@ -2,25 +2,10 @@ require "./spec_helper"
 
 describe Game do
   context ".new" do
-    it "has NUMBER_OF_HANDS hands with STARTING_HAND_SIZE cards each" do
+    it "has no hands" do
       game = Game.new
   
-      game.hands.size.should eq NUMBER_OF_HANDS
-      game.hands.each { |hand| hand.size.should eq STARTING_HAND_SIZE }
-    end
-  
-    it "deals all cards from deck to hands" do
-      game = Game.new
-  
-      dealt_cards = game.hands.flatten.map(&.to_s).sort
-  
-      dealt_cards.should eq sorted_deck
-    end
-
-    it "starts with an empty current_trick" do
-      game = Game.new
-
-      game.current_trick.size.should eq 0
+      game.hands.should eq [] of Card
     end
   end
 
@@ -68,6 +53,8 @@ describe Game do
 
     it "replaces the existing hands" do
       game = Game.new
+      game.new_deal
+
       original_hands = game.hands.flatten.map(&.to_s)
 
       game.new_deal
@@ -75,7 +62,23 @@ describe Game do
       new_hands = game.hands.flatten.map(&.to_s)
       original_hands.should_not eq new_hands
     end
+
+    it "starts with an empty current_trick" do
+      game = Game.new
+
+      game.current_trick.size.should eq 0
+    end
   end
+end
+
+def game_with_players
+  game = Game.new
+  game.add_player("Steve")
+  game.add_player("Tony")
+  game.add_player("Bruce")
+  game.add_player("Clint")
+  game.new_deal
+  game
 end
 
 def sorted_deck
