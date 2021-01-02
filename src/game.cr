@@ -32,7 +32,7 @@ module CardGame
       }.to_json
     end
 
-    private def full?
+    def full?
       @players.size == MAX_PLAYERS
     end
   end
