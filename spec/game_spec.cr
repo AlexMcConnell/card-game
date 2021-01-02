@@ -78,6 +78,56 @@ describe Game do
       end
     end
   end
+
+  context "#to_json(player)" do
+    player_number = 2
+
+    it "returns the player's hand as json" do
+      game = game_with_players
+      player = game.players[player_number]
+
+      json_data = game.to_json(player)
+
+      parsed = JSON.parse(json_data)
+
+      parsed["hands"][2].should eq game.player_hand(player).map(&.to_s)
+    end
+
+    it "returns other players' hands as empty strings" do
+      game = game_with_players
+      player = game.players[player_number]
+
+      json_data = game.to_json(player)
+
+      parsed = JSON.parse(json_data)
+
+      parsed["hands"][0].should eq game.hands[0].map { "" }
+      parsed["hands"][1].should eq game.hands[1].map { "" }
+      parsed["hands"][3].should eq game.hands[3].map { "" }
+    end
+
+    it "returns the current player's player number" do
+      game = game_with_players
+      player = game.players[player_number]
+
+      json_data = game.to_json(player)
+
+      parsed = JSON.parse(json_data)
+
+      parsed["player_number"].should eq player_number
+    end
+
+    it "returns the current deal's tricks" do
+      game = game_with_players
+      player = game.players[player_number]
+
+      json_data = game.to_json(player)
+
+      parsed = JSON.parse(json_data)
+
+      parsed["tricks"].should eq game.tricks
+    end
+  end
 end
 
 def sorted_deck

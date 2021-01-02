@@ -1,5 +1,6 @@
 require "./*"
 require "./exceptions/*"
+require "json"
 
 module CardGame
   def self.create
