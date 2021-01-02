@@ -1,6 +1,10 @@
 module CardGame
   class Game
+    @deal : Deal
+
     getter :players
+
+    forward_missing_to @deal
 
     def initialize
       @deal = Deal.new
@@ -11,25 +15,9 @@ module CardGame
       @players << GamePlayer.new(name) unless full?
     end
 
-    def current_trick
-      @deal.current_trick
-    end
-
-    def hands
-      @deal.hands
-    end
-
     def new_deal
       raise MissingPlayerError.new unless full?
       @deal = Deal.create(@players)
-    end
-
-    def play(player, card_str)
-      @deal.play(player, card_str)
-    end
-
-    def player_hand(player)
-      @deal.player_hand(player)
     end
 
     def to_json(player)
@@ -42,10 +30,6 @@ module CardGame
         player_number: hands.index(p_hand),
         tricks: tricks
       }.to_json
-    end
-
-    def tricks
-      @deal.tricks
     end
 
     private def full?
